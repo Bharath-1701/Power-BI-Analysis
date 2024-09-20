@@ -1,0 +1,12 @@
+
+Sales Qty = SUM('sales transactions'[sales_qty])
+Revenue = SUM('Sales transactions'[norm_sales_amount])
+Revenue LY = CALCULATE([Revenue],SAMEPERIODLASTYEAR('sales date'[date]))
+Revenue Contribution % = DIVIDE([Revenue],CALCULATE([Revenue],ALL('sales products'),ALL('sales customers'),ALL('sales markets')))
+Profit Margin % = DIVIDE([Total Profit Margin],[Revenue],0)
+Total Profit Margin = SUM('Sales transactions'[Profit_Margin])
+Profit Margin Contribution % = DIVIDE([Total Profit Margin],CALCULATE([Total Profit Margin],ALL('sales products'),ALL('sales customers'),ALL('sales markets')))
+
+Profit Target = GENERATESERIES(-0.05, 0.15, 0.01)
+Profit Target Value = SELECTEDVALUE('Profit Target'[Profit Target])
+Target Diff = [Profit Margin %]-'Profit Target'[Profit Target Value]
